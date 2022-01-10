@@ -27,7 +27,7 @@ const Row = ({title, fetchUrl, navigation}) => {
     <View>
       <Text>{title}</Text>
       <FlatList
-        data={data.slice(0, 10)}
+        data={data}
         renderItem={renderItem}
         keyExtractor={item => item.id}
         horizontal={true}

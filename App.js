@@ -1,15 +1,16 @@
 import 'react-native-gesture-handler';
-import React, {useState} from 'react';
+import React from 'react';
 import Main from './src/screens/Main';
-import Auth from './src/screens/Auth';
+import {AuthProvider} from './src/context/AuthContext';
+import {MovieProvider} from './src/context/MovieContext';
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const handleChange = () => setIsLoggedIn(prevState => !prevState);
-  return isLoggedIn ? (
-    <Main handleChange={handleChange} />
-  ) : (
-    <Auth handleChange={handleChange} />
+  return (
+    <AuthProvider>
+      <MovieProvider>
+        <Main />
+      </MovieProvider>
+    </AuthProvider>
   );
 };
 

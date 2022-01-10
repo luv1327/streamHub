@@ -23,14 +23,14 @@ const ImageSlider = ({navigation, fetchUrl}) => {
   );
 
   return (
-    <View style={{borderWidth: 1, height: 200, width: '100%'}}>
+    <View>
       <TouchableOpacity>
         <SliderBox
           images={movieImages.slice(0, 11)}
           // currentImageEmitter={index =>
           //   console.warn(`current pos is: ${index}`)
           // }
-          sliderBoxHeight={180}
+          sliderBoxHeight={200}
           dotColor="#FFEE58"
           inactiveDotColor="#90A4AE"
           onCurrentImagePressed={index =>

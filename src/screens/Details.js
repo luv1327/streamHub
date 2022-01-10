@@ -1,14 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
+import axios from 'axios';
+import {MovieContext} from '../context/MovieContext';
 import {
   View,
   Image,
   SafeAreaView,
   Linking,
-  Button,
   FlatList,
   Text,
+  TouchableOpacity,
+  ScrollView,
 } from 'react-native';
-import axios from 'axios';
 import {
   baseUrl,
   apiKey,
@@ -21,22 +23,46 @@ import Row from '../components/Row';
 import CastAndCrew from '../components/CastAndCrew';
 
 const Details = ({route, navigation}) => {
-  const mediaType = route.params.movie.media_type === 'tv' ? 'tv' : 'movie';
-  const [movie, setMovie] = useState(route.params.movie);
-  const [videoKey, setVideoKey] = useState(
-    `https://www.youtube.com/results?search_query=${route.params.movie.name}`,
-  );
-  const [credits, setCredits] = useState([]);
+  const {
+    handleDownload,
+    handleWatchlist,
+    isDownloaded,
+    isWatchlisted,
+    setErrMessage,
+  } = useContext(MovieContext);
+  const {
+    // original_title,
+    id,
+    genre_ids,
+    overview,
+    backdrop_path,
+    media_type,
+    release_date,
+    // title,
+    vote_average,
+    // poster_path,
+    title,
+    name,
+  } = route.params.movie;
 
-  if (!route.params.movie.genre_ids.includes(10762)) {
+  const mediaType = media_type === 'tv' ? 'tv' : 'movie';
+  const [movie, setMovie] = useState(route.params.movie);
+
+  const {homepage, original_language, runtime} = movie;
+
+  const [videoKey, setVideoKey] = useState(
+    `https://www.youtube.com/results?search_query=${name}`,
+  );
+
+  if (!genre_ids.includes(10762)) {
     useEffect(() => {
       const fetchMovie = async () => {
         try {
           const response = await axios.get(
-            `${baseUrl}/${mediaType}/${route.params.movie.id}?api_key=${apiKey}&language=en-US&${extraData}`,
+            `${baseUrl}/${mediaType}/${id}?api_key=${apiKey}&language=en-US&${extraData}`,
           );
           setMovie(response.data);
-          setCredits(response.data.credits);
+          console.log(response.data);
           const youtubeKey = response.data.videos.results.filter(videos => {
             if (videos.type === 'Trailer' && videos.site === 'YouTube') {
               return videos.key;
@@ -55,16 +81,11 @@ const Details = ({route, navigation}) => {
   }
 
   const renderSimilar = () => {
-    if (!route.params.movie.genre_ids.includes(10762)) {
+    if (!genre_ids.includes(10762)) {
       return (
         <Row
           title="Similar"
-          fetchUrl={fetchSimilar(
-            baseUrl,
-            route.params.movie.id,
-            apiKey,
-            mediaType,
-          )}
+          fetchUrl={fetchSimilar(baseUrl, id, apiKey, mediaType)}
           navigation={navigation}
         />
       );
@@ -83,20 +104,53 @@ const Details = ({route, navigation}) => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <View>
-        <Image
-          source={{uri: `${imageBaseUrl}${movie.backdrop_path}`}}
-          style={{width: 350, height: 200}}
-        />
-        <Text> {videoKey} </Text>
+      <ScrollView>
+        <View>
+          <Image
+            source={{uri: `${imageBaseUrl}${backdrop_path}`}}
+            style={{width: '100%', height: 200}}
+          />
+        </View>
+        <Text> {title?.length >= 0 ? title : name} </Text>
+        <Text> Watch </Text>
+        <TouchableOpacity onPress={() => Linking.openURL(videoKey)}>
+          <Text> Trailer </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            isDownloaded(id)
+              ? setErrMessage('Already Downloaded')
+              : handleDownload(route.params.movie)
+          }>
+          <Text> {isDownloaded(id) ? 'Downloaded' : 'Download'} </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            isWatchlisted(id)
+              ? setErrMessage('Already Watchlisted')
+              : handleWatchlist(route.params.movie)
+          }>
+          <Text>
+            {' '}
+            {isWatchlisted(id) ? 'Watchlisted' : 'Add To Watchlist'}{' '}
+          </Text>
+        </TouchableOpacity>
+        <Text> {overview} </Text>
+        <Text> IMDb {vote_average} </Text>
+        <Text> Runtime {runtime} </Text>
+        <Text> {original_language} </Text>
+        <Text> {release_date} </Text>
+        <Text> HomePage - {homepage} </Text>
+        <Text> Related </Text>
         {renderSimilar()}
-      </View>
-      <Button title="Go" onPress={() => Linking.openURL(videoKey)} />
-      <FlatList
-        data={credits.cast}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-      />
+        <FlatList
+          data={movie?.credits?.cast}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+        />
+      </ScrollView>
     </SafeAreaView>
   );
 };

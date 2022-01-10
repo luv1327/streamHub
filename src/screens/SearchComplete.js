@@ -27,7 +27,7 @@ const SearchComplete = ({navigation, route}) => {
             ...responseMovie.data.results,
             ...responseShow.data.results,
           ];
-          setData(movieAndTv);
+          await setData(movieAndTv);
         } else {
           const responseGenreShow = await axios.get(
             fetchByGenreShows(
@@ -64,6 +64,7 @@ const SearchComplete = ({navigation, route}) => {
   return (
     <View>
       <Text>SearchComplete</Text>
+      <Text> Search Result {data.length} </Text>
       <FlatList
         data={data}
         renderItem={renderItem}

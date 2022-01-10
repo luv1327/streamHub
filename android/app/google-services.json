@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "188092036093",
+    "project_id": "streamhub-1cfb1",
+    "storage_bucket": "streamhub-1cfb1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:188092036093:android:7ae3bdea339f2653445f94",
+        "android_client_info": {
+          "package_name": "com.streamhub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "188092036093-9e9gd2n5v5k9dtmvc6nd9g3lb88nk2nh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQ-NiBTobda5l-M0yaGvngMIix9psoISw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "188092036093-9e9gd2n5v5k9dtmvc6nd9g3lb88nk2nh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

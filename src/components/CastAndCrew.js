@@ -8,7 +8,7 @@ const CastAndCrew = ({data}) => {
     <View>
       <Image
         source={{uri: `${imageBaseUrl}${profile_path}`}}
-        style={{width: 100, height: 100}}
+        style={{width: 50, height: 50}}
       />
       <Text>{name}</Text>
     </View>
