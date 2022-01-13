@@ -10,59 +10,70 @@ const AuthProvider = ({children}) => {
   const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
   const [fireStoreUser, setFireStoreUser] = useState(null);
-  const [errMessage] = useState('Invalid Email Or Password');
+  const [errMessage, setErrMessage] = useState('');
 
   const login = async () => {
     try {
-      const response = await auth().signInWithEmailAndPassword(email, password);
-      setUser(response.user);
-      await firestore()
-        .collection('Users')
-        .doc(email)
-        .get()
-        .then(documentSnapshot => {
-          if (documentSnapshot.exists) {
-            console.log(documentSnapshot.data());
-            setFireStoreUser(documentSnapshot.data());
-          }
-        })
-        .catch(err => console.log(err));
+      if (email.length > 3 && password.length > 3) {
+        const response = await auth().signInWithEmailAndPassword(
+          email,
+          password,
+        );
+        setUser(response.user);
+        await firestore()
+          .collection('Users')
+          .doc(email)
+          .get()
+          .then(documentSnapshot => {
+            if (documentSnapshot.exists) {
+              console.log(documentSnapshot.data());
+              setFireStoreUser(documentSnapshot.data());
+            }
+          })
+          .catch(err => console.log(err));
+      } else {
+        setErrMessage('Please enter valid email and password');
+      }
     } catch (err) {
-      console.warn(errMessage);
+      setErrMessage('Please Enter Valid Email And Password');
     }
   };
 
   const register = async () => {
     try {
-      const response = await auth().createUserWithEmailAndPassword(
-        email,
-        password,
-      );
-      setUser(response.user);
-      await firestore()
-        .collection('Users')
-        .doc(email)
-        .set({
-          //Capitalizing first letter of the username
-          username: username.charAt(0).toUpperCase() + username.slice(1),
+      if (email.length > 3 && password.length > 3 && username.length > 0) {
+        const response = await auth().createUserWithEmailAndPassword(
           email,
-          imageUrl: '',
-          downloadedVideos: [],
-          watchlistedVideos: [],
-        })
-        .catch(err => console.warn(err));
-      await firestore()
-        .collection('Users')
-        .doc(email)
-        .get()
-        .then(documentSnapshot => {
-          if (documentSnapshot.exists) {
-            setFireStoreUser(documentSnapshot.data());
-          }
-        })
-        .catch(err => console.log(err));
+          password,
+        );
+        setUser(response.user);
+        await firestore()
+          .collection('Users')
+          .doc(email)
+          .set({
+            //Capitalizing first letter of the username
+            username: username.charAt(0).toUpperCase() + username.slice(1),
+            email,
+            imageUrl: '',
+            downloadedVideos: [],
+            watchlistedVideos: [],
+          })
+          .catch(err => console.warn(err));
+        await firestore()
+          .collection('Users')
+          .doc(email)
+          .get()
+          .then(documentSnapshot => {
+            if (documentSnapshot.exists) {
+              setFireStoreUser(documentSnapshot.data());
+            }
+          })
+          .catch(err => console.log(err));
+      } else {
+        setErrMessage('Please enter valid email and password');
+      }
     } catch (err) {
-      console.warn(errMessage);
+      setErrMessage('Please Enter Valid Email And Password');
     }
   };
 

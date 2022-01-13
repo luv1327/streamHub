@@ -3,6 +3,7 @@ import {View, TouchableOpacity} from 'react-native';
 import {SliderBox} from 'react-native-image-slider-box';
 import axios from 'axios';
 import {imageBaseUrl} from '../components/requests';
+import {colors} from '../assets/colors/Colors';
 
 const ImageSlider = ({navigation, fetchUrl}) => {
   const [data, setData] = useState([]);
@@ -31,8 +32,8 @@ const ImageSlider = ({navigation, fetchUrl}) => {
           //   console.warn(`current pos is: ${index}`)
           // }
           sliderBoxHeight={200}
-          dotColor="#FFEE58"
-          inactiveDotColor="#90A4AE"
+          dotColor={colors.mainText}
+          inactiveDotColor={colors.inActiveColor}
           onCurrentImagePressed={index =>
             navigation.navigate('Details', {movie: data[index]})
           }
@@ -40,7 +41,12 @@ const ImageSlider = ({navigation, fetchUrl}) => {
           resizeMethod={'resize'}
           resizeMode={'cover'}
           ImageComponentStyle={{width: '100%', marginTop: 10}}
-          imageLoadingColor="#2196F3"
+          imageLoadingColor={colors.mainText}
+          dotStyle={{
+            width: 8,
+            height: 8,
+            marginHorizontal: 0,
+          }}
         />
       </TouchableOpacity>
     </View>

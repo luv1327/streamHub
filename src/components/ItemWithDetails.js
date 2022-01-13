@@ -9,7 +9,7 @@ const ItemWithDetails = ({data, navigation}) => {
         onPress={() => navigation.push('Details', {movie: data})}>
         <Image
           source={{uri: `${imageBaseUrl}/${data.poster_path}`}}
-          style={{height: 150, width: 100}}
+          style={{height: 140, width: 90, margin: 9, borderRadius: 10}}
         />
       </TouchableOpacity>
     </View>

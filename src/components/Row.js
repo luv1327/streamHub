@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View, FlatList} from 'react-native';
+import {FlatList} from 'react-native';
 import axios from 'axios';
 import Item from '../components/Item';
+import styled from 'styled-components';
+import {colors} from '../assets/colors/Colors';
 
 const Row = ({title, fetchUrl, navigation}) => {
   const [data, setData] = useState([]);
@@ -24,8 +26,8 @@ const Row = ({title, fetchUrl, navigation}) => {
   const renderItem = ({item}) => <Item data={item} navigation={navigation} />;
 
   return (
-    <View>
-      <Text>{title}</Text>
+    <RowContainer>
+      <RowTitle>{title}</RowTitle>
       <FlatList
         data={data}
         renderItem={renderItem}
@@ -33,8 +35,21 @@ const Row = ({title, fetchUrl, navigation}) => {
         horizontal={true}
         showsHorizontalScrollIndicator={false}
       />
-    </View>
+    </RowContainer>
   );
 };
 
 export default Row;
+
+const RowContainer = styled.View`
+  margin-left: 15px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+`;
+
+const RowTitle = styled.Text`
+  font-size: 18px;
+  color: ${colors.mainText};
+  font-weight: bold;
+  padding: 6px;
+`;

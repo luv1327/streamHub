@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {FlatList, Text} from 'react-native';
+import {colors} from '../assets/colors/Colors';
+import styled from 'styled-components';
 import axios from 'axios';
 import {
   fetchByNameMovie,
@@ -62,18 +64,57 @@ const SearchComplete = ({navigation, route}) => {
   );
 
   return (
-    <View>
-      <Text>SearchComplete</Text>
-      <Text> Search Result {data.length} </Text>
-      <FlatList
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-        numColumns={2}
-        horizontal={false}
-      />
-    </View>
+    <MainContainer>
+      {data.length > 0 ? (
+        <SecondaryContainer>
+          <SearchResult>
+            {route.params.searchedTerm !== undefined
+              ? route.params.searchedTerm
+              : route.params.data.title}
+          </SearchResult>
+          <FlatList
+            data={data}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+            numColumns={3}
+            horizontal={false}
+            showsVerticalScrollIndicator={false}
+          />
+        </SecondaryContainer>
+      ) : (
+        <>
+          <Text
+            style={{
+              fontSize: 22,
+              color: colors.mainText,
+              textAlign: 'center',
+              marginTop: 40,
+              fontFamily: 'Poppins-Bold',
+            }}>
+            Sorry No Results Found!
+          </Text>
+        </>
+      )}
+    </MainContainer>
   );
 };
 
 export default SearchComplete;
+
+const MainContainer = styled.View`
+  background-color: ${colors.background};
+  margin-bottom: 50px;
+`;
+
+const SecondaryContainer = styled.View`
+  width: 90%;
+  margin: 20px auto;
+`;
+
+const SearchResult = styled.Text`
+  font-size: 22px;
+  color: ${colors.mainText};
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+`;

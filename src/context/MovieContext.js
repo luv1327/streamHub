@@ -1,6 +1,7 @@
 import React, {useState, createContext, useContext, useEffect} from 'react';
 import firestore from '@react-native-firebase/firestore';
 import {AuthContext} from './AuthContext';
+import {Share} from 'react-native';
 
 const MovieContext = createContext();
 
@@ -9,7 +10,6 @@ const MovieProvider = ({children}) => {
   const [downloadedVideos, setDownloadedVideos] = useState([]);
   const [watchlistedVideos, setWatchlistedVideos] = useState([]);
   const [errMessage, setErrMessage] = useState('');
-
   useEffect(() => {
     const subscriber = firestore()
       .collection('Users')
@@ -22,6 +22,26 @@ const MovieProvider = ({children}) => {
     // Stop listening for updates when no longer required
     return () => subscriber();
   }, [fireStoreUser?.email]);
+
+  const onShare = async movieName => {
+    try {
+      const result = await Share.share({
+        message: `Check out this movie ${movieName} I found FREE on StreamHub.Download the app to find more movies.`,
+        url: `https://streamhub.streamhub.com`,
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          console.log('Shared with activity type of result.activityType');
+        } else {
+          console.log('Shared');
+        }
+      } else if (result.action === Share.dismissedAction) {
+        console.log('Dismissed');
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
   const isDownloaded = id => {
     const response = downloadedVideos.map(movie => movie.movie.id).includes(id)
@@ -76,6 +96,7 @@ const MovieProvider = ({children}) => {
         isWatchlisted,
         errMessage,
         setErrMessage,
+        onShare,
       }}>
       {children}
     </MovieContext.Provider>

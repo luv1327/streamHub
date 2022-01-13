@@ -6,13 +6,12 @@ import ImageSlider from '../components/ImageSlider';
 
 const Movies = ({navigation}) => {
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView>
       <ScrollView>
         <ImageSlider
           fetchUrl={movieRequest.fetchTrending}
           navigation={navigation}
         />
-        {/* Latest Is Not Fetching Data  */}
         <Row
           title="Upcoming"
           fetchUrl={movieRequest.fetchUpcoming}
@@ -21,11 +20,6 @@ const Movies = ({navigation}) => {
         <Row
           title="Now Playing"
           fetchUrl={movieRequest.fetchNowPlaying}
-          navigation={navigation}
-        />
-        <Row
-          title="Fast And Furious Series"
-          fetchUrl={movieRequest.fetchFastAndFuriousCollection}
           navigation={navigation}
         />
         <Row
@@ -40,6 +34,26 @@ const Movies = ({navigation}) => {
         />
         <Row
           title="Latest"
+          fetchUrl={movieRequest.fetchUpcoming2}
+          navigation={navigation}
+        />
+        <Row
+          title="Most Loved"
+          fetchUrl={movieRequest.fetchPopular3}
+          navigation={navigation}
+        />
+        <Row
+          title="Most Watched"
+          fetchUrl={movieRequest.fetchNowPlaying2}
+          navigation={navigation}
+        />
+        <Row
+          title="Most Awaited Movies"
+          fetchUrl={movieRequest.fetchNowPlaying3}
+          navigation={navigation}
+        />
+        <Row
+          title="Originals"
           fetchUrl={movieRequest.fetchPopular2}
           navigation={navigation}
         />

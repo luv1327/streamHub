@@ -9,6 +9,11 @@ import Downloads from '../screens/Downloads';
 import Account from '../screens/Account';
 import Auth from '../screens/Auth';
 import {AuthContext} from '../context/AuthContext';
+import {colors} from '../assets/colors/Colors';
+import HomeIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import SearchIcon from 'react-native-vector-icons/Feather';
+import DownloadIcon from 'react-native-vector-icons/Feather';
+import UserIcon from 'react-native-vector-icons/Feather';
 
 const Tab = createBottomTabNavigator();
 
@@ -46,11 +51,61 @@ function Main() {
   if (initializing) return null;
   return user ? (
     <NavigationContainer>
-      <Tab.Navigator screenOptions={{headerShown: false}}>
-        <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Search" component={Search} />
-        <Tab.Screen name="Downloads" component={Downloads} />
-        <Tab.Screen name="Me" component={Account} />
+      <Tab.Navigator
+        initialRouteName="Home"
+        screenOptions={{
+          headerShown: false,
+          tabBarActiveTintColor: colors.tabBarIcon,
+          tabBarInactiveTintColor: colors.inActiveColor,
+          tabBarStyle: {
+            backgroundColor: colors.tabBar,
+            borderTopWidth: 1,
+            borderTopColor: colors.tabBar,
+            height: 60,
+            paddingBottom: 6,
+            paddingTop: 3,
+          },
+        }}>
+        <Tab.Screen
+          name="Home"
+          component={Home}
+          options={{
+            tabBarLabel: 'Home',
+            tabBarIcon: ({color, size}) => (
+              <HomeIcon name="home" color={color} size={size} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Search"
+          component={Search}
+          options={{
+            tabBarLabel: 'Search',
+            tabBarIcon: ({color, size}) => (
+              <SearchIcon name="search" color={color} size={size} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Downloads"
+          component={Downloads}
+          options={{
+            tabBarLabel: 'Downloads',
+            tabBarIcon: ({color, size}) => (
+              <DownloadIcon name="download" color={color} size={size} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Me"
+          component={Account}
+          options={{
+            tabBarLabel: 'Me',
+            tabBarIcon: ({color, size}) => (
+              <UserIcon name="user" color={color} size={size} />
+            ),
+          }}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   ) : (
