@@ -1,20 +1,24 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {FlatList} from 'react-native';
 import axios from 'axios';
 import Item from '../components/Item';
 import styled from 'styled-components';
 import {colors} from '../assets/colors/Colors';
+import {MovieContext} from '../context/MovieContext';
 
 const Row = ({title, fetchUrl, navigation}) => {
   const [data, setData] = useState([]);
+  const {setLoading} = useContext(MovieContext);
   useEffect(() => {
     async function fetchData() {
       try {
         const response = await axios.get(fetchUrl);
         if (response.data.parts) {
           setData(response.data.parts);
+          setLoading(false);
         } else {
           setData(response.data.results);
+          setLoading(false);
         }
       } catch (error) {
         console.log(error);
@@ -24,7 +28,6 @@ const Row = ({title, fetchUrl, navigation}) => {
   }, []);
 
   const renderItem = ({item}) => <Item data={item} navigation={navigation} />;
-
   return (
     <RowContainer>
       <RowTitle>{title}</RowTitle>

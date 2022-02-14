@@ -8,11 +8,10 @@ import NotDownloaded from '../components/NotDownloaded';
 
 const Downloaded = ({navigation}) => {
   const {downloadedVideos} = useContext(MovieContext);
-  console.log(downloadedVideos);
   const renderItem = ({item}) => <ItemDW item={item} navigation={navigation} />;
   return (
     <DownloadsContainer>
-      {downloadedVideos.length > 0 ? (
+      {downloadedVideos?.length > 0 ? (
         <DownloadedContent>
           <Title> Downloads </Title>
           <View style={{marginBottom: 140}}>

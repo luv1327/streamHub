@@ -26,7 +26,10 @@ const Content = ({navigation}) => {
       <StatusBar backgroundColor={colors.background} />
       <ScrollView>
         <HeaderContainer>
-          <LogoImage source={require('../assets/images/Logo.png')} />
+          <LogoContainer>
+            <StreamText>Stream</StreamText>
+            <HubText>Hub</HubText>
+          </LogoContainer>
           <SelectionContainer>
             <TextContainer
               style={selected === 'Movies' ? borderStyle : {}}
@@ -60,10 +63,21 @@ const HeaderText = styled.Text`
   text-align: center;
 `;
 
-const LogoImage = styled.Image`
-  height: 50px;
-  width: 100px;
-  margin: 10px auto;
+const LogoContainer = styled.Text`
+  margin: 15px auto;
+  color: ${colors.mainText};
+`;
+
+const StreamText = styled.Text`
+  font-size: 26px;
+  font-family: 'Poppins-Bold';
+  color: ${colors.tabBarIcon};
+`;
+
+const HubText = styled.Text`
+  font-size: 26px;
+  font-family: 'Poppins-Bold';
+  color: #fff;
 `;
 
 const HeaderContainer = styled.View`

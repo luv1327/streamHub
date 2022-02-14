@@ -69,7 +69,6 @@ const Details = ({route, navigation}) => {
             `${baseUrl}/${mediaType}/${id}?api_key=${apiKey}&language=en-US&${extraData}`,
           );
           setMovie(response.data);
-          console.log(response.data);
           const youtubeKey = response.data.videos.results.filter(videos => {
             if (videos.type === 'Trailer' && videos.site === 'YouTube') {
               return videos.key;

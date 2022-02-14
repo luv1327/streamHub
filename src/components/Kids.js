@@ -1,12 +1,17 @@
 import React from 'react';
-import {SafeAreaView, ScrollView} from 'react-native';
+import {ScrollView} from 'react-native';
 import ImageSlider from '../components/ImageSlider';
 import {showRequests} from '../components/requests';
 import Row from '../components/Row';
+import * as Animatable from 'react-native-animatable';
 
 const Kids = ({navigation}) => {
   return (
-    <SafeAreaView>
+    <Animatable.View
+      useNativeDriver={true}
+      animation="fadeIn"
+      duration={3000}
+      easing="ease-in">
       <ScrollView>
         <ImageSlider
           fetchUrl={showRequests.fetchKids3}
@@ -33,7 +38,7 @@ const Kids = ({navigation}) => {
           navigation={navigation}
         />
       </ScrollView>
-    </SafeAreaView>
+    </Animatable.View>
   );
 };
 

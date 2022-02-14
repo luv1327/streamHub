@@ -18,8 +18,11 @@ const User = ({navigation}) => {
     <WatchlistedContainer>
       <UserInfoContainer>
         <AvatarAndImageContainer>
-          <Avatar source={require('../assets/images/monster.png')} />
-          <Username> {fireStoreUser.username} </Username>
+          <Avatar
+            //eslint-disable-next-line
+            source={require('../assets/images/monster.png')}
+          />
+          <Username> {fireStoreUser?.username} </Username>
         </AvatarAndImageContainer>
         <LogoutIcon
           name="logout"
@@ -28,7 +31,7 @@ const User = ({navigation}) => {
           onPress={logout}
         />
       </UserInfoContainer>
-      {watchlistedVideos.length > 0 ? (
+      {watchlistedVideos?.length > 0 ? (
         <View>
           <Title
             style={{borderBottomWidth: 1, borderBottomColor: colors.mainText}}>

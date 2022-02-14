@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Text, TextInput, Image, StyleSheet} from 'react-native';
+import {Text, TextInput, StyleSheet} from 'react-native';
 import {AuthContext} from '../context/AuthContext';
 import styled from 'styled-components';
 import {colors} from '../assets/colors/Colors';
@@ -9,10 +9,10 @@ const Register = () => {
     useContext(AuthContext);
   return (
     <RegsiterContainer>
-      <Image
-        source={require('../assets/images/Logo.png')}
-        style={{alignSelf: 'center', marginBottom: 30}}
-      />
+      <LogoContainer>
+        <StreamText>Stream</StreamText>
+        <HubText>Hub</HubText>
+      </LogoContainer>
       <Text style={styles.title}>Create Account</Text>
       <Text style={styles.text}>Username</Text>
       <TextInput
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: 'Poppins-Bold',
-    fontSize: 34,
+    fontSize: 24,
     color: colors.mainText,
     marginBottom: 15,
     letterSpacing: 1,
@@ -85,4 +85,21 @@ align-items: center;
 justify-content: center;
 margin-top : 20px;
 border-radius :5px;
+`;
+
+const LogoContainer = styled.Text`
+  margin: 0px auto 30px auto;
+  color: ${colors.mainText};
+`;
+
+const StreamText = styled.Text`
+  font-size: 40px;
+  font-family: 'Poppins-Bold';
+  color: ${colors.tabBarIcon};
+`;
+
+const HubText = styled.Text`
+  font-size: 40px;
+  font-family: 'Poppins-Bold';
+  color: #fff;
 `;

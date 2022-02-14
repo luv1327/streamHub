@@ -1,12 +1,17 @@
 import React from 'react';
-import {ScrollView, SafeAreaView} from 'react-native';
+import {ScrollView} from 'react-native';
 import Row from '../components/Row';
 import {movieRequest} from '../components/requests';
 import ImageSlider from '../components/ImageSlider';
+import * as Animatable from 'react-native-animatable';
 
 const Movies = ({navigation}) => {
   return (
-    <SafeAreaView>
+    <Animatable.View
+      useNativeDriver={true}
+      animation="fadeIn"
+      duration={2000}
+      easing="ease-in">
       <ScrollView>
         <ImageSlider
           fetchUrl={movieRequest.fetchTrending}
@@ -58,7 +63,7 @@ const Movies = ({navigation}) => {
           navigation={navigation}
         />
       </ScrollView>
-    </SafeAreaView>
+    </Animatable.View>
   );
 };
 

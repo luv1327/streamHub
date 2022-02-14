@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Text, TextInput, Image, StyleSheet} from 'react-native';
+import {Text, TextInput, StyleSheet} from 'react-native';
 import {AuthContext} from '../context/AuthContext';
 import {colors} from '../assets/colors/Colors';
 import styled from 'styled-components';
@@ -9,10 +9,10 @@ const Login = () => {
   console.log(errMessage);
   return (
     <LoginContainer>
-      <Image
-        source={require('../assets/images/Logo.png')}
-        style={{alignSelf: 'center', marginBottom: 40}}
-      />
+      <LogoContainer>
+        <StreamText>Stream</StreamText>
+        <HubText>Hub</HubText>
+      </LogoContainer>
       <Text style={styles.title}>Login </Text>
       <Text style={styles.text}>Email </Text>
       <TextInput
@@ -56,9 +56,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: 'Poppins-Bold',
-    fontSize: 34,
+    fontSize: 24,
     color: colors.mainText,
-    marginBottom: 30,
+    marginBottom: 10,
     letterSpacing: 1,
   },
   placeholder: {
@@ -79,4 +79,21 @@ align-items: center;
 justify-content: center;
 margin-top : 20px;
 border-radius :5px;
+`;
+
+const LogoContainer = styled.Text`
+  margin: 0px auto 30px auto;
+  color: ${colors.mainText};
+`;
+
+const StreamText = styled.Text`
+  font-size: 40px;
+  font-family: 'Poppins-Bold';
+  color: ${colors.tabBarIcon};
+`;
+
+const HubText = styled.Text`
+  font-size: 40px;
+  font-family: 'Poppins-Bold';
+  color: #fff;
 `;

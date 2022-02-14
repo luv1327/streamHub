@@ -2,6 +2,7 @@ import React, {useState, createContext, useContext, useEffect} from 'react';
 import firestore from '@react-native-firebase/firestore';
 import {AuthContext} from './AuthContext';
 import {Share} from 'react-native';
+import Snackbar from 'react-native-snackbar';
 
 const MovieContext = createContext();
 
@@ -10,6 +11,8 @@ const MovieProvider = ({children}) => {
   const [downloadedVideos, setDownloadedVideos] = useState([]);
   const [watchlistedVideos, setWatchlistedVideos] = useState([]);
   const [errMessage, setErrMessage] = useState('');
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const subscriber = firestore()
       .collection('Users')
@@ -44,14 +47,16 @@ const MovieProvider = ({children}) => {
   };
 
   const isDownloaded = id => {
-    const response = downloadedVideos.map(movie => movie.movie.id).includes(id)
+    const response = downloadedVideos?.map(movie => movie.movie.id).includes(id)
       ? true
       : false;
     return response;
   };
 
   const isWatchlisted = id => {
-    const response = watchlistedVideos.map(movie => movie.movie.id).includes(id)
+    const response = watchlistedVideos
+      ?.map(movie => movie.movie.id)
+      .includes(id)
       ? true
       : false;
     return response;
@@ -60,7 +65,7 @@ const MovieProvider = ({children}) => {
   const handleWatchlist = movie => {
     firestore()
       .collection('Users')
-      .doc(fireStoreUser.email)
+      .doc(fireStoreUser?.email)
       .update({
         watchlistedVideos: firestore.FieldValue.arrayUnion({
           movie,
@@ -68,12 +73,16 @@ const MovieProvider = ({children}) => {
       })
       .then(() => console.log('Movie Added To Watchlist'))
       .catch(err => console.warn(err));
+    Snackbar.show({
+      text: 'Item Added To Watchlist',
+      duration: Snackbar.LENGTH_SHORT,
+    });
   };
 
   const handleDownload = movie => {
     firestore()
       .collection('Users')
-      .doc(fireStoreUser.email)
+      .doc(fireStoreUser?.email)
       .update({
         downloadedVideos: firestore.FieldValue.arrayUnion({
           movie,
@@ -81,6 +90,11 @@ const MovieProvider = ({children}) => {
       })
       .then(() => console.log('Movie Added To Downloads'))
       .catch(err => console.warn(err));
+    Snackbar.show({
+      text: 'Item Added To Downloads',
+      duration: Snackbar.LENGTH_SHORT,
+      fontFamily: 'Poppins-Regular',
+    });
   };
 
   return (
@@ -97,6 +111,8 @@ const MovieProvider = ({children}) => {
         errMessage,
         setErrMessage,
         onShare,
+        loading,
+        setLoading,
       }}>
       {children}
     </MovieContext.Provider>
