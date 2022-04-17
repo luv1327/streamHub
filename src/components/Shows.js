@@ -33,8 +33,23 @@ const Shows = ({navigation}) => {
           navigation={navigation}
         />
         <Row
-          title="Top Rated"
+          title="Most Downloaded"
           fetchUrl={showRequests.fetchTopRated}
+          navigation={navigation}
+        />
+        <Row
+          title="Binge All Night"
+          fetchUrl={showRequests.fetchPopular2}
+          navigation={navigation}
+        />
+        <Row
+          title="Most Loved"
+          fetchUrl={showRequests.fetchPopular3}
+          navigation={navigation}
+        />
+        <Row
+          title="Box Office"
+          fetchUrl={showRequests.fetchTopRated2}
           navigation={navigation}
         />
       </ScrollView>

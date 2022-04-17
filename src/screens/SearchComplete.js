@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {FlatList, Text} from 'react-native';
+import {FlatList, ActivityIndicator} from 'react-native';
 import {colors} from '../assets/colors/Colors';
 import styled from 'styled-components';
 import axios from 'axios';
@@ -83,16 +83,11 @@ const SearchComplete = ({navigation, route}) => {
         </SecondaryContainer>
       ) : (
         <>
-          <Text
-            style={{
-              fontSize: 22,
-              color: colors.mainText,
-              textAlign: 'center',
-              marginTop: 40,
-              fontFamily: 'Poppins-Bold',
-            }}>
-            Sorry No Results Found!
-          </Text>
+          <ActivityIndicator
+            style={{marginTop: '70%'}}
+            size="large"
+            color={colors.tabBarIcon}
+          />
         </>
       )}
     </MainContainer>

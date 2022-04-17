@@ -1,5 +1,8 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+import {
+  createStackNavigator,
+  CardStyleInterpolators,
+} from '@react-navigation/stack';
 import Searching from '../screens/Searching';
 import SearchComplete from './SearchComplete';
 import ItemWithDetails from '../components/ItemWithDetails';
@@ -13,6 +16,7 @@ const Search = () => {
       initialRouteName="Searching"
       screenOptions={{
         headerShown: false,
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         cardStyle: {
           backgroundColor: colors.background,
         },

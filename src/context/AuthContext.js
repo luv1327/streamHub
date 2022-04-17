@@ -35,7 +35,8 @@ const AuthProvider = ({children}) => {
         setErrMessage('Please enter valid email and password');
       }
     } catch (err) {
-      setErrMessage('Please Enter Valid Email And Password');
+      const message = err.message.substring(err.message.indexOf(']') + 1);
+      setErrMessage(message);
     }
   };
 
@@ -73,7 +74,8 @@ const AuthProvider = ({children}) => {
         setErrMessage('Please enter valid email and password');
       }
     } catch (err) {
-      setErrMessage('Please Enter Valid Email And Password');
+      const message = err.message.substring(err.message.indexOf(']') + 1);
+      setErrMessage(message);
     }
   };
 

@@ -5,8 +5,8 @@ import {colors} from '../assets/colors/Colors';
 import styled from 'styled-components';
 
 const Login = () => {
-  const {setEmail, setPassword, login, errMessage} = useContext(AuthContext);
-  console.log(errMessage);
+  const {setEmail, setPassword, login} = useContext(AuthContext);
+
   return (
     <LoginContainer>
       <LogoContainer>

@@ -1,9 +1,9 @@
-const apiKey = '92c3dfa0581f24de374d6b5704044fcd';
+import {API_KEY} from '@env';
+const apiKey = API_KEY;
 const baseUrl = 'https://api.themoviedb.org/3';
 const baseUrlForList = 'https://api.themoviedb.org/4';
 const imageBaseUrl = 'https://image.tmdb.org/t/p/w500';
 const extraData = 'append_to_response=videos,images,credits';
-const youtubeApiKey = 'AIzaSyATBXwxXpWj1-mcCQkUR8mtsrM7aNNbHQ8';
 let id = '';
 let searchedTerm = '';
 let imagePath = '';
@@ -69,7 +69,10 @@ const showRequests = {
   fetchAiringToday: `${baseUrl}/tv/airing_today?api_key=${apiKey}&language=en-US&page=1`,
   fetchOnTheAir: `${baseUrl}/tv/on_the_air?api_key=${apiKey}&language=en-US&page=1`,
   fetchPopular: `${baseUrl}/tv/popular?api_key=${apiKey}&language=en-US&page=1`,
+  fetchPopular2: `${baseUrl}/tv/popular?api_key=${apiKey}&language=en-US&page=2`,
+  fetchPopular3: `${baseUrl}/tv/popular?api_key=${apiKey}&language=en-US&page=3`,
   fetchTopRated: `${baseUrl}/tv/top_rated?api_key=${apiKey}&language=en-US&page=1`,
+  fetchTopRated2: `${baseUrl}/tv/top_rated?api_key=${apiKey}&language=en-US&page=2`,
   fetchSimilar: `${baseUrl}/tv/${id}/similar?api_key=${apiKey}&language=en-US&page=1`,
   fetchRecommendations: `${baseUrl}/tv/${id}/recommendations?api_key=${apiKey}&language=en-US&page=1`,
   fetchByGenre: `${baseUrl}/discover/tv?api_key=${apiKey}&with_genres=${id}&page=1`,
@@ -124,5 +127,4 @@ export {
   fetchByGenreMovies,
   fetchByGenreShows,
   fetchKidsRandom,
-  youtubeApiKey,
 };
